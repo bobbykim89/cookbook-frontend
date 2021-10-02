@@ -1,6 +1,6 @@
 # Bobby's Cook Book - Frontend v0.1.0 (In Progress)
 
-Small cookbook webpage using Next.js, Strapi, GraphQL
+Frontend part of a Small cookbook webpage using Next.js, Strapi, GraphQL.
 
 ## Scripts
 
@@ -31,6 +31,7 @@ moment\
 postcss-cli\
 react-moment\
 tailwindcss\
+headlessui\
 chokidar-cli
 
 ## Changes
