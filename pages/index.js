@@ -1,4 +1,9 @@
-export default function Home() {
+import { gql } from '@apollo/client';
+import client from '@/config/apolloClient';
+import { GET_NEWEST_RECIPES } from '@/queries/recipeQueries';
+
+export default function Home({ recipes }) {
+  console.log(recipes);
   return (
     <div className='relative bg-white overflow-hidden'>
       <div className='max-w-7xl mx-auto'>
@@ -55,4 +60,16 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const { data } = await client.query({
+    query: GET_NEWEST_RECIPES,
+  });
+
+  return {
+    props: {
+      recipes: data.recipes,
+    },
+  };
 }
