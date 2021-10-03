@@ -17,6 +17,10 @@ const GET_ALL_RECIPES = gql`
         url
         formats
       }
+      category {
+        name
+        id
+      }
     }
   }
 `;
@@ -37,6 +41,10 @@ const GET_NEWEST_RECIPES = gql`
         name
         url
         formats
+      }
+      category {
+        name
+        id
       }
     }
   }

@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import Navbar from './Navbar';
+import Footer from './LayoutParts/Footer';
+import Navbar from './LayoutParts/Navbar';
 
 const Layout = ({ title, keywords, description, children }) => {
   return (
@@ -10,7 +11,8 @@ const Layout = ({ title, keywords, description, children }) => {
         <meta keywords='keywords' content={keywords} />
       </Head>
       <Navbar />
-      <div>{children}</div>
+      <div className='relative min-h-[85vh]'>{children}</div>
+      <Footer />
     </div>
   );
 };

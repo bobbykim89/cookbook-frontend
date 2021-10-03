@@ -10,7 +10,7 @@ const Navbar = () => {
     { name: 'Contact', href: '#' },
   ];
   return (
-    <header className='w-full top-0 z-20 lg:sticky bg-white bg-opacity-80'>
+    <header className='w-full top-0 z-20 lg:sticky bg-white bg-opacity-80 font-inter'>
       <Popover>
         <div className='relative container mx-auto py-4 px-4 sm:px-6 lg:px-8'>
           <nav
