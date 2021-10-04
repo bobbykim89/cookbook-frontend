@@ -1,16 +1,17 @@
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import Link from 'next/dist/client/link';
 
 const Navbar = () => {
   const navigation = [
-    { name: 'Home', href: '#' },
-    { name: 'Recipes', href: '#' },
-    { name: 'About', href: '#' },
-    { name: 'Contact', href: '#' },
+    { name: 'Home', href: '/' },
+    { name: 'Recipes', href: '/recipes' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
   ];
   return (
-    <header className='w-full top-0 z-20 lg:sticky bg-white bg-opacity-80 font-inter'>
+    <header className='w-full top-0 z-20 lg:sticky bg-white bg-opacity-90 font-inter'>
       <Popover>
         <div className='relative container mx-auto py-4 px-4 sm:px-6 lg:px-8'>
           <nav
@@ -19,16 +20,19 @@ const Navbar = () => {
           >
             <div className='flex items-center flex-grow flex-shrink-0 lg:flex-grow-0'>
               <div className='flex items-center justify-between w-full md:w-auto'>
-                <a href='#'>
-                  <span className='sr-only'>Bobby's Cookbook</span>
-                  <img
-                    className='h-8 w-auto sm:h-10 inline-block mr-4'
-                    src='/images/logo.png'
-                  />
-                  <h1 className='inline-block font-bold text-xl align-middle'>
-                    BOBBY'S <span className='text-[#f1ac18]'>COOK</span>BOOK
-                  </h1>
-                </a>
+                <Link href='/'>
+                  <a>
+                    <span className='sr-only'>Bobby's Cookbook</span>
+                    <img
+                      className='h-8 w-auto sm:h-10 inline-block mr-4'
+                      src='/images/logo.png'
+                      alt='logo'
+                    />
+                    <h1 className='inline-block font-bold text-xl align-middle'>
+                      BOBBY'S <span className='text-[#f1ac18]'>COOK</span>BOOK
+                    </h1>
+                  </a>
+                </Link>
                 <div className='-mr-2 flex items-center md:hidden'>
                   <Popover.Button className='bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'>
                     <span className='sr-only'>Open main menu</span>
@@ -39,20 +43,17 @@ const Navbar = () => {
             </div>
             <div className='hidden md:block md:ml-10 md:pr-4 md:space-x-8'>
               {navigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className='font-medium text-gray-500 hover:text-gray-900'
-                >
-                  {item.name}
-                </a>
+                <Link key={item.name} href={item.href}>
+                  <a className='font-medium text-gray-500 hover:text-gray-900'>
+                    {item.name}
+                  </a>
+                </Link>
               ))}
-              <a
-                href='#'
-                className='font-medium text-[#f1ac18] hover:text-[#f25b0a]'
-              >
-                Log in
-              </a>
+              <Link href='#'>
+                <a className='font-medium text-[#f1ac18] hover:text-[#f25b0a]'>
+                  Log in
+                </a>
+              </Link>
             </div>
           </nav>
         </div>

@@ -6,13 +6,12 @@ import Hero from '@/components/PageParts/Hero';
 import Card from '@/components/Card';
 
 export default function Home({ recipes }) {
-  console.log(recipes);
   return (
     <Fragment>
       <Hero />
       <section className='lg:w-2/3 mx-auto my-12'>
-        <h1 className='text-4xl font-bold mb-8'>Newest Recipes</h1>
-        <div className='grid grid-flow-row lg:grid-cols-3 gap-4 mx-auto'>
+        <h1 className='text-4xl font-bold mb-8 ml-3'>Newest Recipes</h1>
+        <div className='grid grid-flow-row lg:grid-cols-4 gap-4 mx-auto'>
           {recipes.map((recipe) => (
             <Card key={recipe.id} recipe={recipe} />
           ))}

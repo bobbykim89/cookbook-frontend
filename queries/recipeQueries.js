@@ -27,7 +27,7 @@ const GET_ALL_RECIPES = gql`
 
 const GET_NEWEST_RECIPES = gql`
   query GetNewestRecipes {
-    recipes {
+    recipes(limit: 4, sort: "created_at:desc") {
       title
       ingredients
       direction
@@ -36,6 +36,11 @@ const GET_NEWEST_RECIPES = gql`
       user {
         username
         id
+        profile {
+          avatar {
+            formats
+          }
+        }
       }
       cover {
         name
