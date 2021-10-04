@@ -2,7 +2,7 @@ import Link from 'next/dist/client/link';
 
 const Card = ({ recipe }) => {
   return (
-    <div className='w-[95%] lg:w-full mx-auto overflow-hidden border-black border rounded shadow-lg font-inter mb-4'>
+    <div className='w-[95%] lg:w-full mx-auto overflow-hidden border-black border rounded shadow-xl font-inter mb-4'>
       <div className='aspect-w-3 aspect-h-2'>
         <img
           src={
@@ -15,10 +15,12 @@ const Card = ({ recipe }) => {
         />
       </div>
       <div className='mx-6 my-4'>
-        <h1 className='text-2xl font-semibold mb-3'>{recipe.title}</h1>
+        <h1 className='text-2xl font-semibold mb-3 capitalize'>
+          {recipe.title}
+        </h1>
         <div className='text-right mb-4'>
           <Link href={`/recipes/categories/${recipe.category.id}`}>
-            <a className='inline-block px-6 py-2 rounded bg-[#cc080b] text-white'>
+            <a className='inline-block px-6 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize'>
               {recipe.category.name}
             </a>
           </Link>

@@ -4,6 +4,7 @@ import client from '@/config/apolloClient';
 import { GET_NEWEST_RECIPES } from '@/queries/recipeQueries';
 import Hero from '@/components/PageParts/Hero';
 import Card from '@/components/Card';
+import Introduction from '@/components/PageParts/Introduction';
 
 export default function Home({ recipes }) {
   return (
@@ -17,6 +18,7 @@ export default function Home({ recipes }) {
           ))}
         </div>
       </section>
+      <Introduction />
     </Fragment>
   );
 }

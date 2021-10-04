@@ -36,7 +36,7 @@ const Hero = () => {
                 <div className='mt-3 sm:mt-0 sm:ml-3'>
                   <a
                     href='/register'
-                    className='w-full flex items-center justify-center px-8 py-3 border border-black text-base font-medium rounded-md text-black bg-white hover:bg-black hover:text-white md:py-4 md:text-lg md:px-10 transition ease-in duration-150'
+                    className='w-full flex items-center justify-center px-8 py-3 text-base font-medium rounded-md text-white bg-[#d45464] hover:bg-[#cc080b] md:py-4 md:text-lg md:px-10 transition ease-in duration-150'
                   >
                     To Sign Up
                   </a>
