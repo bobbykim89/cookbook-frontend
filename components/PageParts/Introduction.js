@@ -2,10 +2,10 @@ const Introduction = () => {
   const imageUrl =
     'https://images.unsplash.com/photo-1564844536308-50b114a1d946?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=994&q=80';
   return (
-    <section className='my-12 text-white bg-[#d45464]'>
+    <section className='my-12 text-white'>
       <div className='relative z-10 top-auto bottom-0 left-0 right-0 w-full pointer-events-none overflow-hidden h-[80px]'>
         <svg
-          className='absolute top-0 overflow-hidden'
+          className='absolute bottom-0 overflow-hidden'
           xmlns='http://www.w3.org/2000/svg'
           preserveAspectRatio='none'
           version='1.1'
@@ -14,8 +14,8 @@ const Introduction = () => {
           y='0'
         >
           <polygon
-            className='text-white fill-current'
-            points='0 0 2560 0 2560 100'
+            className='text-[#d45464] fill-current'
+            points='0 0 2560 100 0 100'
           ></polygon>
         </svg>
       </div>
@@ -43,7 +43,7 @@ const Introduction = () => {
       </div>
       <div className='relative top-auto bottom-0 left-0 right-0 w-full pointer-events-none overflow-hidden h-[80px]'>
         <svg
-          className='absolute bottom-0 overflow-hidden'
+          className='absolute top-0 overflow-hidden'
           xmlns='http://www.w3.org/2000/svg'
           preserveAspectRatio='none'
           version='1.1'
@@ -52,8 +52,8 @@ const Introduction = () => {
           y='0'
         >
           <polygon
-            className='text-white fill-current'
-            points='2560 0 2560 100 0 100'
+            className='text-[#d45464] fill-current'
+            points='0 0 2560 0 0 100'
           ></polygon>
         </svg>
       </div>

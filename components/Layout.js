@@ -4,14 +4,20 @@ import Navbar from './LayoutParts/Navbar';
 
 const Layout = ({ title, keywords, description, children }) => {
   return (
-    <div>
+    <div className='relative'>
       <Head>
         <title>{title}</title>
         <meta name='description' content={description} />
         <meta keywords='keywords' content={keywords} />
       </Head>
       <Navbar />
-      <div className='relative min-h-[85vh]'>{children}</div>
+      <div
+        className='absolute inset-0 z-[-1] h-full bg-repeat opacity-5'
+        style={{
+          backgroundImage: 'url(/images/pattern.svg)',
+        }}
+      ></div>
+      <div className='relative'>{children}</div>
       <Footer />
     </div>
   );

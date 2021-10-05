@@ -2,7 +2,7 @@ import Link from 'next/dist/client/link';
 
 const Card = ({ recipe }) => {
   return (
-    <div className='w-[95%] lg:w-full mx-auto overflow-hidden border-black border rounded shadow-xl font-inter mb-4'>
+    <div className='w-[95%] lg:w-full mx-auto overflow-hidden border-black border rounded shadow-xl font-inter mb-4 bg-white'>
       <div className='aspect-w-3 aspect-h-2'>
         <img
           src={
