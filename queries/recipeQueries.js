@@ -11,6 +11,11 @@ const GET_ALL_RECIPES = gql`
       user {
         username
         id
+        profile {
+          avatar {
+            formats
+          }
+        }
       }
       cover {
         name

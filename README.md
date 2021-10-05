@@ -16,9 +16,9 @@ App can be found in [http://localhost:3000](http://localhost:3000) for more info
 
 Layout can be found in following Links:\
 
-[PDF Version](https://drive.google.com/file/d/1GCvPkTvj26RtAn97dm13P6_WU6TBU6e4/view?usp=sharing)
+[PDF Version](https://drive.google.com/file/d/1HIL0IOkn7GSX_48taIbAhtnk6SjPYrId/view?usp=sharing)
 
-[Adobe XD](https://xd.adobe.com/view/2eef057c-7f60-40a3-9bfe-52b093bef4b3-7bbc/)
+[Adobe XD](https://xd.adobe.com/view/97f6bf09-b82c-415d-afbd-d3ae0694106a-c2a5/)
 
 ## `Dependencies`
 
