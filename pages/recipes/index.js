@@ -1,6 +1,7 @@
 import client from '@/config/apolloClient';
 import { GET_ALL_RECIPES } from '@/queries/recipeQueries';
 import Card from '@/components/Card';
+import CategoryBox from '@/components/RecipeParts/CategoryBox';
 
 const RecipePage = ({ recipes, categories }) => {
   const imageAddress =
@@ -15,17 +16,15 @@ const RecipePage = ({ recipes, categories }) => {
         />
       </div>
       <div className='lg:w-[90%] mx-auto'>
-        <div className='grid grid-flow-row lg:grid-cols-4 gap-8'>
+        <h1 className='text-4xl font-bold mb-8 ml-3'>Recipes</h1>
+        <div className='grid grid-flow-row lg:grid-cols-4 gap-8 mb-20'>
           <div className='lg:col-span-3 grid lg:grid-cols-3 gap-4 order-2 lg:order-1'>
             {recipes.map((recipe) => (
               <Card key={recipe.id} recipe={recipe} />
             ))}
           </div>
-          <div className='bg-gray-300 w-full order-1 lg:order-2'>
-            <h1 className='text-center block'>categories go here</h1>
-            {categories.map((category, i) => (
-              <p key={i}>{category}</p>
-            ))}
+          <div className='w-full order-1 lg:order-2'>
+            <CategoryBox categories={categories} />
           </div>
         </div>
       </div>
@@ -40,7 +39,7 @@ export async function getStaticProps() {
     query: GET_ALL_RECIPES,
   });
 
-  const categories = data.recipes.map((recipe) => recipe.category.name);
+  const categories = data.recipes.map((recipe) => recipe.category);
 
   const uniqueCategories = [...new Set(categories)];
 
