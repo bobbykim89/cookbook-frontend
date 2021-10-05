@@ -40,6 +40,7 @@ export async function getStaticProps() {
   return {
     props: {
       recipes: data.recipes,
+      revalidate: 1,
     },
   };
 }

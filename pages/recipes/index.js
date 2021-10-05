@@ -1,11 +1,16 @@
+import { useState } from 'react';
 import client from '@/config/apolloClient';
 import { GET_ALL_RECIPES } from '@/queries/recipeQueries';
 import Card from '@/components/Card';
 import CategoryBox from '@/components/RecipeParts/CategoryBox';
+import AddCategory from '@/components/RecipeParts/AddCategory';
 
 const RecipePage = ({ recipes, categories }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const imageAddress =
     'https://images.unsplash.com/photo-1542223189-67a03fa0f0bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1997&q=80';
+
   return (
     <section>
       <div className='w-full shadow-lg mb-20'>
@@ -24,10 +29,11 @@ const RecipePage = ({ recipes, categories }) => {
             ))}
           </div>
           <div className='w-full order-1 lg:order-2'>
-            <CategoryBox categories={categories} />
+            <CategoryBox categories={categories} setIsOpen={setIsOpen} />
           </div>
         </div>
       </div>
+      <AddCategory isOpen={isOpen} setIsOpen={setIsOpen} />
     </section>
   );
 };
@@ -47,6 +53,7 @@ export async function getStaticProps() {
     props: {
       recipes: data.recipes,
       categories: uniqueCategories,
+      revalidate: 1,
     },
   };
 }

@@ -2,7 +2,7 @@ import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
 import Link from 'next/dist/client/link';
 
-const CategoryBox = ({ categories }) => {
+const CategoryBox = ({ categories, setIsOpen }) => {
   return (
     <div className='w-full'>
       <div className='w-[95%] lg:w-full max-w-md p-2 mx-auto bg-white border border-gray-200 rounded-2xl shadow-lg'>
@@ -14,7 +14,7 @@ const CategoryBox = ({ categories }) => {
                 <ChevronUpIcon
                   className={`${
                     open ? 'transform rotate-180' : ''
-                  } w-5 h-5 text-purple-500`}
+                  } w-5 h-5 text-white`}
                 />
               </Disclosure.Button>
               <Disclosure.Panel className='px-4 pt-4 pb-2 text-xl text-gray-600 font-semibold'>
@@ -26,7 +26,12 @@ const CategoryBox = ({ categories }) => {
                     <a className='hover:text-black'>{category.name}</a>
                   </Link>
                 ))}
-                <p className='block text-center'>+</p>
+                <a
+                  className='block text-center hover:text-black cursor-pointer'
+                  onClick={() => setIsOpen(true)}
+                >
+                  +
+                </a>
               </Disclosure.Panel>
             </>
           )}

@@ -32,6 +32,7 @@ postcss-cli\
 react-moment\
 tailwindcss\
 headlessui\
+react-icons\
 chokidar-cli
 
 ## Changes
