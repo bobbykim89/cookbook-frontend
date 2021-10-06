@@ -4,7 +4,7 @@ import Navbar from './LayoutParts/Navbar';
 
 const Layout = ({ title, keywords, description, children }) => {
   return (
-    <div className='relative'>
+    <div className='relative font-inter'>
       <Head>
         <title>{title}</title>
         <meta name='description' content={description} />

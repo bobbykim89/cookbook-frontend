@@ -86,6 +86,15 @@ const GET_RECIPE = gql`
         name
         id
       }
+      comments {
+        user {
+          username
+          id
+        }
+        text
+        created_at
+        id
+      }
     }
   }
 `;

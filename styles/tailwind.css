@@ -3,3 +3,19 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Permanent+Marker&display=swap');
+
+.recipe-post ul,
+ol {
+  font-size: 110%;
+  margin: 10px 0;
+}
+
+.recipe-post h1 {
+  font-size: 35px;
+}
+
+.recipe-post h2,
+.recipe-post h3,
+.recipe-post h4 {
+  font-size: 27px;
+}
