@@ -1,5 +1,7 @@
 import client from '@/config/apolloClient';
 import Moment from 'react-moment';
+import { useRouter } from 'next/dist/client/router';
+import { MdShare } from 'react-icons/md';
 import { GET_RECIPE } from '@/queries/recipeQueries';
 import Link from 'next/dist/client/link';
 import RecipeTabs from '@/components/RecipeParts/RecipeTabs';
@@ -16,9 +18,23 @@ const RecipePage = ({ recipe }) => {
     category,
     comments,
   } = recipe;
+
+  const router = useRouter();
+
+  const handleGoBack = (e) => {
+    e.preventDefault();
+    router.push('/recipes');
+  };
+
+  const copyLink = (e) => {
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl);
+    // setAlert('Copied to clipboard!');
+  };
+
   return (
     <section className='lg:w-2/3 mx-auto py-20'>
-      <div className='mb-8'>
+      <div className='mb-8 shadow-xl'>
         <img
           src={cover.url}
           alt='cover'
@@ -26,10 +42,27 @@ const RecipePage = ({ recipe }) => {
         />
       </div>
       <div className='w-[90%] lg:w-full mx-auto mb-8'>
-        <h1 className='text-3xl lg:text-7xl capitalize font-bold tracking-wider ml-3 mb-4'>
+        <h1 className='text-4xl lg:text-7xl capitalize font-bold tracking-wider ml-3 mb-4'>
           {title}
         </h1>
         <div className='mb-8'>
+          <div className='flex justify-start mb-4 items-center'>
+            <button
+              onClick={handleGoBack}
+              className='inline-block px-4 py-2 rounded border border-[#f1ac18] hover:border-[#f25b0a] text-[#f1ac18] hover:text-[#f25b0a] capitalize ml-2 mr-3 font-semibold'
+            >
+              Go Back
+            </button>
+
+            <Link href={`/recipes/categories/${category.id}`}>
+              <a className='inline-block px-4 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize mr-3 border border-[#d45464] hover:border-[#cc080b]'>
+                {category.name}
+              </a>
+            </Link>
+            <button onClick={copyLink}>
+              <MdShare className='text-4xl text-[#f1ac18] hover:text-[#f25b0a] text-shadow-xl' />
+            </button>
+          </div>
           <div className='flex justify-end items-center mb-2'>
             <img
               src={user.profile.avatar.formats.thumbnail.url}
@@ -41,13 +74,6 @@ const RecipePage = ({ recipe }) => {
           <p className='text-right mb-4'>
             <Moment format='MMMM Do YYYY'>{created_at}</Moment>
           </p>
-          <div className='text-right mb-4'>
-            <Link href={`/recipes/categories/${category.id}`}>
-              <a className='inline-block px-6 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize'>
-                {category.name}
-              </a>
-            </Link>
-          </div>
         </div>
         <RecipeTabs ingredients={ingredients} direction={direction} />
       </div>
