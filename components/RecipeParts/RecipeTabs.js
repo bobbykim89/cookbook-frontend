@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tab } from '@headlessui/react';
 import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
+import remarkGfm from 'remark-gfm';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -38,7 +38,9 @@ const RecipeTabs = ({ ingredients, direction }) => {
           {Object.values(categories).map((post, i) => (
             <Tab.Panel key={i} className='bg-white rounded-xl p-3'>
               <div className='recipe-post relative p-3 leading-5'>
-                <ReactMarkdown remarkPlugins={[gfm]}>{post}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {post}
+                </ReactMarkdown>
               </div>
             </Tab.Panel>
           ))}

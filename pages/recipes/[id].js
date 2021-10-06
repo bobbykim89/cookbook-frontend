@@ -3,6 +3,7 @@ import Moment from 'react-moment';
 import { GET_RECIPE } from '@/queries/recipeQueries';
 import Link from 'next/dist/client/link';
 import RecipeTabs from '@/components/RecipeParts/RecipeTabs';
+import CommentSection from '@/components/CommentParts/CommentSection';
 
 const RecipePage = ({ recipe }) => {
   const {
@@ -24,12 +25,12 @@ const RecipePage = ({ recipe }) => {
           className='max-h-[70vh] w-full object-cover object-center'
         />
       </div>
-      <div className='w-[90%] lg:w-full mx-auto'>
-        <h1 className='text-3xl lg:text-7xl capitalize font-bold tracking-wider mb-4'>
+      <div className='w-[90%] lg:w-full mx-auto mb-8'>
+        <h1 className='text-3xl lg:text-7xl capitalize font-bold tracking-wider ml-3 mb-4'>
           {title}
         </h1>
-        <div>
-          <div className='flex justify-end items-center mb-8'>
+        <div className='mb-8'>
+          <div className='flex justify-end items-center mb-2'>
             <img
               src={user.profile.avatar.formats.thumbnail.url}
               alt='avatar'
@@ -50,6 +51,7 @@ const RecipePage = ({ recipe }) => {
         </div>
         <RecipeTabs ingredients={ingredients} direction={direction} />
       </div>
+      <CommentSection comments={comments} />
     </section>
   );
 };

@@ -90,6 +90,11 @@ const GET_RECIPE = gql`
         user {
           username
           id
+          profile {
+            avatar {
+              formats
+            }
+          }
         }
         text
         created_at
