@@ -46,21 +46,21 @@ const RecipePage = ({ recipe }) => {
           {title}
         </h1>
         <div className='mb-8'>
-          <div className='flex justify-start mb-4 items-center'>
+          <div className='flex justify-start mb-4 items-center '>
             <button
               onClick={handleGoBack}
-              className='inline-block px-4 py-2 rounded border border-[#f1ac18] hover:border-[#f25b0a] text-[#f1ac18] hover:text-[#f25b0a] capitalize ml-2 mr-3 font-semibold'
+              className='inline-block px-4 py-2 rounded border border-[#f1ac18] hover:border-[#f25b0a] text-[#f1ac18] hover:text-[#f25b0a] capitalize ml-2 mr-3 font-semibold transition ease-in duration-150'
             >
               Go Back
             </button>
 
             <Link href={`/recipes/categories/${category.id}`}>
-              <a className='inline-block px-4 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize mr-3 border border-[#d45464] hover:border-[#cc080b]'>
+              <a className='inline-block px-4 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize mr-3 border border-[#d45464] hover:border-[#cc080b] transition ease-in duration-150'>
                 {category.name}
               </a>
             </Link>
             <button onClick={copyLink}>
-              <MdShare className='text-4xl text-[#f1ac18] hover:text-[#f25b0a] text-shadow-xl' />
+              <MdShare className='text-4xl text-[#f1ac18] hover:text-[#f25b0a] text-shadow-xl transition ease-in duration-150' />
             </button>
           </div>
           <div className='flex justify-end items-center mb-2'>

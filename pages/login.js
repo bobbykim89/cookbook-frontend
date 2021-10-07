@@ -60,7 +60,7 @@ const Login = () => {
               <input
                 type='submit'
                 value='Login'
-                className='px-4 py-2 bg-[#d45464] hover:bg-[#cc080b] text-lg text-white font-semibold tracking-wider shadow-md'
+                className='px-4 py-2 bg-[#d45464] hover:bg-[#cc080b] text-lg text-white font-semibold tracking-wider shadow-md transition ease-in duration-150'
               />
             </form>
             <p className='text-center mb-20'>
