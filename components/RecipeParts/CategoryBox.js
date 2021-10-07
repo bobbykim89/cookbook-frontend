@@ -23,7 +23,9 @@ const CategoryBox = ({ categories, setIsOpen }) => {
                     href={`/recipes/categories/${category.id}`}
                     key={category.id}
                   >
-                    <a className='hover:text-black'>{category.name}</a>
+                    <a className='block mb-2 text-center hover:text-black'>
+                      {category.name}
+                    </a>
                   </Link>
                 ))}
                 <a
