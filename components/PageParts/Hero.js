@@ -1,6 +1,8 @@
+import Link from 'next/dist/client/link';
+
 const Hero = () => {
   return (
-    <section className='relative bg-white overflow-hidden font-inter'>
+    <section className='relative bg-white overflow-hidden'>
       <div className='max-w-7xl mx-auto'>
         <div className='relative z-10 py-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32'>
           <svg
@@ -26,20 +28,18 @@ const Hero = () => {
               </p>
               <div className='mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start'>
                 <div className='rounded-md shadow'>
-                  <a
-                    href='/recipes'
-                    className='w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#f1ac18] hover:bg-[#f25b0a] md:py-4 md:text-lg md:px-10 transition ease-in duration-150'
-                  >
-                    See Recipes
-                  </a>
+                  <Link href='/recipes'>
+                    <a className='w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#f1ac18] hover:bg-[#f25b0a] md:py-4 md:text-lg md:px-10 transition ease-in duration-150'>
+                      See Recipes
+                    </a>
+                  </Link>
                 </div>
                 <div className='mt-3 sm:mt-0 sm:ml-3'>
-                  <a
-                    href='/register'
-                    className='w-full flex items-center justify-center px-8 py-3 text-base font-medium rounded-md text-white bg-[#d45464] hover:bg-[#cc080b] md:py-4 md:text-lg md:px-10 transition ease-in duration-150'
-                  >
-                    To Sign Up
-                  </a>
+                  <Link href='/register'>
+                    <a className='w-full flex items-center justify-center px-8 py-3 text-base font-medium rounded-md text-white bg-[#d45464] hover:bg-[#cc080b] md:py-4 md:text-lg md:px-10 transition ease-in duration-150'>
+                      To Sign Up
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>

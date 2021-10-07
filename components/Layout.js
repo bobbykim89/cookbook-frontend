@@ -17,7 +17,7 @@ const Layout = ({ title, keywords, description, children }) => {
           backgroundImage: 'url(/images/pattern.svg)',
         }}
       ></div>
-      <div className='relative'>{children}</div>
+      <div className='relative min-h-[85vh]'>{children}</div>
       <Footer />
     </div>
   );

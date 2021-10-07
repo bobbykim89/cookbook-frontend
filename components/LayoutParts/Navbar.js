@@ -49,7 +49,7 @@ const Navbar = () => {
                   </a>
                 </Link>
               ))}
-              <Link href='#'>
+              <Link href='/login'>
                 <a className='font-semibold text-[#f1ac18] hover:text-[#f25b0a]'>
                   Log in
                 </a>
