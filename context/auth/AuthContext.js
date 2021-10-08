@@ -1,14 +1,25 @@
-import { API_URL } from '@/config/';
-import { LOGIN_USER } from '@/queries/userMutation';
-import { HttpLink, InMemoryCache } from '@apollo/client';
-import { createContext, useReducer, useState } from 'react';
+import client from '@/config/apolloClient';
+import { LOGIN_USER, SIGNUP_USER } from '@/queries/userMutation';
+import { ME } from '@/queries/userQueries';
+import { createContext, useReducer } from 'react';
+import {
+  AUTH_ERROR,
+  CLEAR_ERRORS,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGOUT,
+  SIGNUP_FAIL,
+  SIGNUP_SUCCESS,
+  USER_LOADED,
+} from '../types';
 import authReducer from './authReducer';
 
 export const AuthContext = createContext();
 
 const AuthState = (props) => {
   const initialState = {
-    token: localStorage.getItem('token'),
+    token:
+      typeof window !== 'undefined' && window.localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
     user: null,
@@ -19,58 +30,75 @@ const AuthState = (props) => {
 
   // Load User
   const loadUser = async () => {
-    // Load token into global headers
-    if (localStorage.token) {
+    try {
+      const { data, error } = await client.query({
+        query: ME,
+      });
+      dispatch({ type: USER_LOADED, payload: data.me });
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
     }
   };
 
-  const [authToken, setAuthToken] = useState(null);
-
-  const isSignedIn = () => {
-    if (authToken) {
-      return true;
-    } else {
-      return false;
+  // Signup User
+  const signup = async (formData) => {
+    const { username, email, password } = formData;
+    try {
+      const { data, error } = await client.mutate({
+        mutation: SIGNUP_USER,
+        variables: {
+          input: {
+            username,
+            email,
+            password,
+          },
+        },
+      });
+      dispatch({
+        type: SIGNUP_SUCCESS,
+        payload: data, // data.jwt, data.user
+      });
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: SIGNUP_FAIL,
+        payload: err.response.data.msg,
+      });
     }
   };
 
-  const getAuthHeaders = () => {
-    if (!authToken) {
-      return null;
-    }
-    return {
-      authorization: `Bearer ${authToken}`,
-    };
-  };
-
-  const createApolloClient = () => {
-    const link = new HttpLink({
-      uri: API_URL,
-      headers: getAuthHeaders(),
-    });
-    return new ApolloClient({
-      link,
-      cache: new InMemoryCache(),
-    });
-  };
-
-  const login = async ({ email, password }) => {
-    const client = createApolloClient();
-    const { data } = await client.mutate({
-      mutation: LOGIN_USER,
-      variables: { email, password },
-    });
-
-    console.log(data);
-
-    if (data?.login?.jwt) {
-      setAuthToken(data.login.jwt);
+  // Login User
+  const login = async (formData) => {
+    const { email, password } = formData;
+    try {
+      const { data, error } = await client.mutate({
+        mutation: LOGIN_USER,
+        variables: {
+          input: {
+            identifier: email,
+            password: password,
+          },
+        },
+      });
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: data,
+      });
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response.data.msg,
+      });
     }
   };
 
-  const logout = () => {
-    setAuthToken(null);
-  };
+  // Logout
+  const logout = () => dispatch({ type: LOGOUT });
+
+  // Clear Errors
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
+
   return (
     <AuthContext.Provider
       value={{
@@ -79,6 +107,11 @@ const AuthState = (props) => {
         loading: state.loading,
         user: state.user,
         error: state.error,
+        loadUser,
+        signup,
+        login,
+        logout,
+        clearErrors,
       }}
     >
       {props.children}
