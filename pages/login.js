@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/dist/client/link';
+import { AuthContext } from '@/context/auth/AuthContext';
 
 const Login = () => {
+  const authContext = useContext(AuthContext);
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
 
+  const { login } = authContext;
   const { email, password } = user;
 
   const onChange = (e) => {
@@ -15,7 +18,10 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    if (email === '' || password === '') {
+      return console.log('Please fill in all fields');
+    }
+    login(email, password);
   };
 
   const imgUrl =

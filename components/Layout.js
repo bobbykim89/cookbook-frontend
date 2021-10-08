@@ -1,8 +1,17 @@
+import { AuthContext } from '@/context/auth/AuthContext';
 import Head from 'next/head';
+import { useContext, useEffect } from 'react';
 import Footer from './LayoutParts/Footer';
 import Navbar from './LayoutParts/Navbar';
 
 const Layout = ({ title, keywords, description, children }) => {
+  const authContext = useContext(AuthContext);
+  const { loadUser, token } = authContext;
+  useEffect(() => {
+    if (token !== null) {
+      loadUser();
+    }
+  }, []);
   return (
     <div className='relative font-inter'>
       <Head>

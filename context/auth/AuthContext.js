@@ -68,16 +68,13 @@ const AuthState = (props) => {
   };
 
   // Login User
-  const login = async (formData) => {
-    const { email, password } = formData;
+  const login = async (email, password) => {
     try {
       const { data, error } = await client.mutate({
         mutation: LOGIN_USER,
         variables: {
-          input: {
-            identifier: email,
-            password: password,
-          },
+          identifier: email,
+          password,
         },
       });
       dispatch({
@@ -88,7 +85,7 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: err.response.data.msg,
+        payload: err.response,
       });
     }
   };
