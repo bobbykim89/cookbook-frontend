@@ -68,12 +68,12 @@ const AuthState = (props) => {
   };
 
   // Login User
-  const login = async (email, password) => {
+  const login = async ({ email, password }) => {
     try {
       const { data, error } = await client.mutate({
         mutation: LOGIN_USER,
         variables: {
-          identifier: email,
+          email,
           password,
         },
       });
@@ -83,6 +83,7 @@ const AuthState = (props) => {
       });
       loadUser();
     } catch (err) {
+      console.log(err);
       dispatch({
         type: LOGIN_FAIL,
         payload: err.response,

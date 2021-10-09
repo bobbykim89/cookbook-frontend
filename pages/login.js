@@ -21,7 +21,7 @@ const Login = () => {
     if (email === '' || password === '') {
       return console.log('Please fill in all fields');
     }
-    login(email, password);
+    login({ email, password });
   };
 
   const imgUrl =

@@ -1,18 +1,25 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import { API_URL } from '@/config/index';
 
-const getAuthHeaders = () => {
-  if (typeof window !== 'undefined') {
-    return {
-      Authorization: `Bearer ${window.localStorage.getItem('token')}` || '',
-    };
-  }
-};
+const link = createHttpLink({
+  uri: API_URL,
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token =
+    typeof window !== 'undefined' && window.localStorage.getItem('token');
+  return {
+    headers: {
+      ...headers,
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
 
 const client = new ApolloClient({
-  uri: API_URL,
+  link: authLink.concat(link),
   cache: new InMemoryCache(),
-  headers: getAuthHeaders(),
 });
 
 export default client;
