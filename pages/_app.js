@@ -6,13 +6,13 @@ import AuthState from '@/context/auth/AuthContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ApolloProvider client={client}>
-      <AuthState>
+    <AuthState>
+      <ApolloProvider client={client}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </AuthState>
-    </ApolloProvider>
+      </ApolloProvider>
+    </AuthState>
   );
 }
 

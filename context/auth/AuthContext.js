@@ -28,11 +28,11 @@ const AuthState = (props) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
-    if (initialState.token !== null) {
-      window.localStorage.setItem('token', initialState.token);
+    if (initialState.token) {
+      window.localStorage.setItem('token', JSON.stringify(initialState.token));
       loadUser();
     }
-  }, []);
+  }, [initialState.token]);
 
   // Load User
   const loadUser = async () => {
@@ -84,11 +84,11 @@ const AuthState = (props) => {
         password,
       },
     });
-    console.log(email, password);
+    console.log(data.login);
     try {
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: data,
+        payload: data.login,
       });
     } catch (err) {
       console.log(err);

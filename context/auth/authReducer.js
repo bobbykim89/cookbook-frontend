@@ -25,7 +25,7 @@ const authReducer = (state, action) => {
       // }
       return {
         ...state,
-        ...action.payload.user,
+        user: action.payload.user,
         token: action.payload.jwt,
         isAuthenticated: true,
         loading: false,
