@@ -1,7 +1,7 @@
 import client from '@/config/apolloClient';
 import { LOGIN_USER, SIGNUP_USER } from '@/queries/userMutation';
 import { ME } from '@/queries/userQueries';
-import { createContext, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import {
   AUTH_ERROR,
   CLEAR_ERRORS,
@@ -18,8 +18,7 @@ export const AuthContext = createContext();
 
 const AuthState = (props) => {
   const initialState = {
-    token:
-      typeof window !== 'undefined' && window.localStorage.getItem('token'),
+    token: null,
     isAuthenticated: null,
     loading: true,
     user: null,
@@ -28,15 +27,25 @@ const AuthState = (props) => {
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  useEffect(() => {
+    if (initialState.token !== null) {
+      window.localStorage.setItem('token', initialState.token);
+      loadUser();
+    }
+  }, []);
+
   // Load User
   const loadUser = async () => {
+    const { data, error } = await client.query({
+      query: ME,
+    });
     try {
-      const { data, error } = await client.query({
-        query: ME,
-      });
       dispatch({ type: USER_LOADED, payload: data.me });
     } catch (err) {
-      dispatch({ type: AUTH_ERROR });
+      dispatch({
+        type: AUTH_ERROR,
+        payload: error.message,
+      });
     }
   };
 
@@ -58,7 +67,6 @@ const AuthState = (props) => {
         type: SIGNUP_SUCCESS,
         payload: data, // data.jwt, data.user
       });
-      loadUser();
     } catch (err) {
       dispatch({
         type: SIGNUP_FAIL,
@@ -69,24 +77,24 @@ const AuthState = (props) => {
 
   // Login User
   const login = async ({ email, password }) => {
+    const { data, error } = await client.mutate({
+      mutation: LOGIN_USER,
+      variables: {
+        email,
+        password,
+      },
+    });
+    console.log(email, password);
     try {
-      const { data, error } = await client.mutate({
-        mutation: LOGIN_USER,
-        variables: {
-          email,
-          password,
-        },
-      });
       dispatch({
         type: LOGIN_SUCCESS,
         payload: data,
       });
-      loadUser();
     } catch (err) {
       console.log(err);
       dispatch({
         type: LOGIN_FAIL,
-        payload: err.response,
+        payload: error.message,
       });
     }
   };

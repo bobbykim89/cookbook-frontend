@@ -20,11 +20,13 @@ const authReducer = (state, action) => {
       };
     case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
-      typeof window !== 'undefined' &&
-        window.localStorage.setItem('token', action.payload.jwt);
+      // if (typeof window !== 'undefined') {
+      //   window.localStorage.setItem('token', action.payload.jwt);
+      // }
       return {
         ...state,
         ...action.payload.user,
+        token: action.payload.jwt,
         isAuthenticated: true,
         loading: false,
       };
