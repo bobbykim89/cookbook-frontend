@@ -50,27 +50,25 @@ const AuthState = (props) => {
   };
 
   // Signup User
-  const signup = async (formData) => {
-    const { username, email, password } = formData;
+  const signup = async ({ name, email, password }) => {
+    const { data, error } = await client.mutate({
+      mutation: SIGNUP_USER,
+      variables: {
+        name,
+        email,
+        password,
+      },
+    });
     try {
-      const { data, error } = await client.mutate({
-        mutation: SIGNUP_USER,
-        variables: {
-          input: {
-            username,
-            email,
-            password,
-          },
-        },
-      });
       dispatch({
         type: SIGNUP_SUCCESS,
-        payload: data, // data.jwt, data.user
+        payload: data.register, // data.jwt, data.user
       });
+      loadUser();
     } catch (err) {
       dispatch({
         type: SIGNUP_FAIL,
-        payload: err.response.data.msg,
+        payload: error.message,
       });
     }
   };

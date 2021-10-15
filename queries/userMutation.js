@@ -13,14 +13,8 @@ const LOGIN_USER = gql`
 `;
 
 const SIGNUP_USER = gql`
-  mutation RegisterUser(
-    $username: String!
-    $email: String!
-    $password: String!
-  ) {
-    register(
-      input: { username: $username, email: $email, password: $password }
-    ) {
+  mutation RegisterUser($name: String!, $email: String!, $password: String!) {
+    register(input: { username: $name, email: $email, password: $password }) {
       jwt
       user {
         username

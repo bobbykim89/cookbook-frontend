@@ -37,7 +37,7 @@ const Card = ({ recipe }) => {
           </h3>
         </div>
         <div className='items-center w-full text-center'>
-          <Link href={`recipes/${recipe.id}`}>
+          <Link href={`/recipes/${recipe.id}`}>
             <a className='block py-2 rounded bg-[#f1ac18] text-white hover:bg-[#f25b0a] transition ease-in duration-150'>
               See Recipe
             </a>

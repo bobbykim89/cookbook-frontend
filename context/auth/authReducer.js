@@ -25,7 +25,6 @@ const authReducer = (state, action) => {
       return {
         ...state,
         user: action.payload.user,
-        token: action.payload.jwt,
         isAuthenticated: true,
         loading: false,
       };
@@ -36,7 +35,6 @@ const authReducer = (state, action) => {
       Cookies.remove('token');
       return {
         ...state,
-        token: null,
         isAuthenticated: false,
         loading: false,
         user: null,

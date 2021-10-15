@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/dist/client/link';
+import { AuthContext } from '@/context/auth/AuthContext';
 
 const Signup = () => {
+  const authContext = useContext(AuthContext);
+
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
     password2: '',
   });
+
+  const { signup } = authContext;
 
   const { name, email, password, password2 } = user;
 
@@ -17,7 +22,12 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    if (name === '' || email === '' || password === '') {
+      return console.log('Alert: Please enter all fiends');
+    } else if (password !== password2) {
+      return console.log('Alert: Please Check password again');
+    }
+    signup({ name, email, password });
   };
 
   const imgUrl =
