@@ -1,4 +1,5 @@
 import client from '@/config/apolloClient';
+import Cookies from 'js-cookie';
 import { LOGIN_USER, SIGNUP_USER } from '@/queries/userMutation';
 import { ME } from '@/queries/userQueries';
 import { createContext, useEffect, useReducer } from 'react';
@@ -18,21 +19,20 @@ export const AuthContext = createContext();
 
 const AuthState = (props) => {
   const initialState = {
-    token: null,
+    token: Cookies.get('token'),
     isAuthenticated: null,
     loading: true,
     user: null,
     error: null,
   };
 
-  const [state, dispatch] = useReducer(authReducer, initialState);
-
   useEffect(() => {
     if (initialState.token) {
-      window.localStorage.setItem('token', JSON.stringify(initialState.token));
       loadUser();
     }
-  }, [initialState.token]);
+  }, []);
+
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load User
   const loadUser = async () => {
@@ -90,6 +90,7 @@ const AuthState = (props) => {
         type: LOGIN_SUCCESS,
         payload: data.login,
       });
+      loadUser();
     } catch (err) {
       console.log(err);
       dispatch({

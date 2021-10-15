@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import {
   AUTH_ERROR,
   CLEAR_ERRORS,
@@ -20,9 +21,7 @@ const authReducer = (state, action) => {
       };
     case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
-      // if (typeof window !== 'undefined') {
-      //   window.localStorage.setItem('token', action.payload.jwt);
-      // }
+      Cookies.set('token', action.payload.jwt, { expires: 1 });
       return {
         ...state,
         user: action.payload.user,
@@ -34,7 +33,7 @@ const authReducer = (state, action) => {
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
-      typeof window !== 'undefined' && window.localStorage.removeItem('token');
+      Cookies.remove('token');
       return {
         ...state,
         token: null,
