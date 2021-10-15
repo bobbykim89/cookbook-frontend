@@ -1,6 +1,7 @@
 import { AuthContext } from '@/context/auth/AuthContext';
 import Head from 'next/head';
 import { useContext, useEffect } from 'react';
+import Alerts from './Alerts';
 import Footer from './LayoutParts/Footer';
 import Navbar from './LayoutParts/Navbar';
 
@@ -16,6 +17,7 @@ const Layout = ({ title, keywords, description, children }) => {
         <meta keywords='keywords' content={keywords} />
       </Head>
       <Navbar />
+      <Alerts />
       <div
         className='absolute inset-0 z-[-1] h-full bg-repeat opacity-5'
         style={{
