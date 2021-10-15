@@ -30,4 +30,13 @@ const GET_CATEGORY = gql`
   }
 `;
 
-export { GET_CATEGORY };
+const GET_CATEGORIES = gql`
+  query GetCategories {
+    categories {
+      name
+      id
+    }
+  }
+`;
+
+export { GET_CATEGORY, GET_CATEGORIES };

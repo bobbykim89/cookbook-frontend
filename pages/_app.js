@@ -4,15 +4,18 @@ import '../styles/globals.css';
 import client from '@/config/apolloClient';
 import AuthState from '@/context/auth/AuthContext';
 import AlertState from '@/context/alert/AlertContext';
+import CategoryState from '@/context/category/CategoryContext';
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthState>
       <ApolloProvider client={client}>
         <AlertState>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <CategoryState>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </CategoryState>
         </AlertState>
       </ApolloProvider>
     </AuthState>

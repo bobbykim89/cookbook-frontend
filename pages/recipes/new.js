@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { CategoryContext } from '@/context/category/CategoryContext';
+import { useContext, useEffect, useState } from 'react';
 
 const NewRecipe = () => {
+  const categoryContext = useContext(CategoryContext);
+
   const [post, setPost] = useState({
     title: '',
     ingredients: '',
@@ -10,6 +13,14 @@ const NewRecipe = () => {
   });
 
   const { title, ingredients, direction, category, cover } = post;
+
+  const { categories, getCategories } = categoryContext;
+
+  useEffect(() => {
+    getCategories();
+
+    // eslint-disable-next-line
+  }, []);
 
   const onChange = (e) => {
     setPost({ ...post, [e.target.name]: e.target.value });
@@ -50,6 +61,11 @@ const NewRecipe = () => {
               className='block w-full p-3 outline-none bg-gray-100 shadow-md'
             >
               <option className='p-3'>Select Category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className='mb-4'>

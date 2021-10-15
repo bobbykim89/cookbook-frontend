@@ -1,8 +1,12 @@
+import { CategoryContext } from '@/context/category/CategoryContext';
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 
 const AddCategory = ({ isOpen, setIsOpen }) => {
+  const categoryContext = useContext(CategoryContext);
   const [name, setName] = useState('');
+
+  const { createNewCategory } = categoryContext;
 
   const closeModal = () => {
     setName('');
@@ -11,7 +15,7 @@ const AddCategory = ({ isOpen, setIsOpen }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('category name is ', name);
+    createNewCategory({ name });
     setName('');
     setIsOpen(false);
   };
