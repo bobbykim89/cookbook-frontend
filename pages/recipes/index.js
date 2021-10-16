@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import Link from 'next/dist/client/link';
 import client from '@/config/apolloClient';
 import { GET_ALL_RECIPES } from '@/queries/recipeQueries';
 import Card from '@/components/Card';
 import CategoryBox from '@/components/RecipeParts/CategoryBox';
 import AddCategory from '@/components/RecipeParts/AddCategory';
+import { AuthContext } from '@/context/auth/AuthContext';
 
 const RecipePage = ({ recipes, categories }) => {
+  const authContext = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+
+  const { isAuthenticated } = authContext;
 
   const imageAddress =
     'https://images.unsplash.com/photo-1542223189-67a03fa0f0bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1997&q=80';
@@ -29,6 +34,14 @@ const RecipePage = ({ recipes, categories }) => {
             ))}
           </div>
           <div className='w-full order-1 lg:order-2'>
+            {isAuthenticated && (
+              <Link href='/recipes/new'>
+                <a className='text-center text-2xl font-semibold block py-2 rounded-lg bg-[#d45464] text-white hover:bg-[#cc080b] transition ease-in duration-150 mb-4 mx-2'>
+                  Add New Recipe
+                </a>
+              </Link>
+            )}
+
             <CategoryBox categories={categories} setIsOpen={setIsOpen} />
           </div>
         </div>

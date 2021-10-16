@@ -1,8 +1,11 @@
+import { AuthContext } from '@/context/auth/AuthContext';
 import { CategoryContext } from '@/context/category/CategoryContext';
+import { useRouter } from 'next/dist/client/router';
 import { useContext, useEffect, useState } from 'react';
 
 const NewRecipe = () => {
   const categoryContext = useContext(CategoryContext);
+  const authContext = useContext(AuthContext);
 
   const [post, setPost] = useState({
     title: '',
@@ -10,17 +13,27 @@ const NewRecipe = () => {
     direction: '',
     category: '',
     cover: null,
+    user: authContext.user.id,
   });
 
-  const { title, ingredients, direction, category, cover } = post;
+  const router = useRouter();
+
+  const { title, ingredients, direction, category, cover, user } = post;
 
   const { categories, getCategories } = categoryContext;
+
+  const { isAuthenticated } = authContext;
 
   useEffect(() => {
     getCategories();
 
     // eslint-disable-next-line
   }, []);
+
+  const handleGoBack = (e) => {
+    e.preventDefault();
+    router.push('/recipes');
+  };
 
   const onChange = (e) => {
     setPost({ ...post, [e.target.name]: e.target.value });
@@ -57,6 +70,7 @@ const NewRecipe = () => {
             <select
               name='category'
               id='category'
+              onChange={onChange}
               required
               className='block w-full p-3 outline-none bg-gray-100 shadow-md'
             >
@@ -94,11 +108,21 @@ const NewRecipe = () => {
               className='block w-full p-3 outline-none bg-gray-100 shadow-md h-40 lg:h-60'
             />
           </div>
-          <input
-            type='submit'
-            value='Submit'
-            className='block w-full px-4 py-2 bg-[#d45464] hover:bg-[#cc080b] text-lg text-white font-semibold tracking-wider shadow-md transition ease-in duration-150'
-          />
+          <div className='grid grid-cols-2 gap-3 items-center'>
+            <div>
+              <input
+                type='submit'
+                value='Submit'
+                className='block w-full px-4 py-2 bg-[#d45464] hover:bg-[#cc080b] text-lg text-white font-semibold tracking-wider shadow-md transition ease-in duration-150 cursor-pointer'
+              />
+            </div>
+            <div
+              className='block w-full text-center px-4 py-2 bg-[#f1ac18] hover:bg-[#f25b0a] text-lg text-white font-semibold tracking-wider shadow-md transition ease-in duration-150 cursor-pointer'
+              onClick={handleGoBack}
+            >
+              Cancel
+            </div>
+          </div>
         </form>
       </div>
     </section>

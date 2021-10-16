@@ -9,7 +9,7 @@ const CategoryBox = ({ categories, setIsOpen }) => {
         <Disclosure defaultOpen='true'>
           {({ open }) => (
             <>
-              <Disclosure.Button className='flex justify-between w-full px-4 py-2 text-2xl font-semibold text-left text-white bg-[#f1ac18] rounded-lg hover:bg-[#f25b0a] focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 items-center'>
+              <Disclosure.Button className='flex justify-between w-full px-4 py-2 text-2xl font-semibold text-left text-white bg-[#f1ac18] rounded-lg hover:bg-[#f25b0a] items-center'>
                 <span>Categories</span>
                 <ChevronUpIcon
                   className={`${
