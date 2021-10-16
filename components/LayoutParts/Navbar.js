@@ -23,7 +23,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    location.reload();
+    location.href = '/';
   };
 
   const authLinks = (
