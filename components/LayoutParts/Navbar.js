@@ -1,15 +1,81 @@
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/dist/client/link';
+import { AuthContext } from '@/context/auth/AuthContext';
+import { FaSignOutAlt } from 'react-icons/fa';
+import { useRouter } from 'next/dist/client/router';
+import Cookies from 'js-cookie';
 
 const Navbar = () => {
+  const authContext = useContext(AuthContext);
+
+  const router = useRouter();
+
+  const { isAuthenticated, user, logout } = authContext;
+
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Recipes', href: '/recipes' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  const handleLogout = () => {
+    logout();
+    location.reload();
+  };
+
+  const authLinks = (
+    <Fragment>
+      <a className='inline-block font-semibold text-black'>
+        {user && user.username}
+      </a>
+      <a
+        onClick={handleLogout}
+        className='items-center inline-block cursor-pointer text-[#f1ac18] hover:text-[#f25b0a] font-semibold'
+      >
+        <FaSignOutAlt className='inline-block mb-1' />
+        <span className='hidden lg:inline-block ml-2 '>Logout</span>
+      </a>
+    </Fragment>
+  );
+
+  const guestLinks = (
+    <Fragment>
+      <Link href='/login'>
+        <a className='font-semibold text-[#f1ac18] hover:text-[#f25b0a]'>
+          Log in
+        </a>
+      </Link>
+    </Fragment>
+  );
+
+  const authLinksMobile = (
+    <Fragment>
+      <div className='flex flex-wrap justify-center items-center block w-full px-5 py-3 text-center font-medium bg-gray-50 hover:bg-gray-100'>
+        <a className='inline-block text-black mr-4'>{user && user.username}</a>
+        <a
+          onClick={handleLogout}
+          className='items-center inline-block cursor-pointer text-[#f1ac18] hover:text-[#f25b0a] mb-1'
+        >
+          <FaSignOutAlt className='inline-block items-center' />
+          <span className='hidden lg:inline-block ml-2 '>Logout</span>
+        </a>
+      </div>
+    </Fragment>
+  );
+
+  const guestLinksMobile = (
+    <Fragment>
+      <Link href='/login'>
+        <a className='block w-full px-5 py-3 text-center font-medium text-[#f1ac18] bg-gray-50 hover:bg-gray-100'>
+          Log in
+        </a>
+      </Link>
+    </Fragment>
+  );
+
   return (
     <header className='w-full top-0 z-20 lg:sticky bg-white bg-opacity-90 font-inter'>
       <Popover>
@@ -49,11 +115,7 @@ const Navbar = () => {
                   </a>
                 </Link>
               ))}
-              <Link href='/login'>
-                <a className='font-semibold text-[#f1ac18] hover:text-[#f25b0a]'>
-                  Log in
-                </a>
-              </Link>
+              {isAuthenticated ? authLinks : guestLinks}
             </div>
           </nav>
         </div>
@@ -95,11 +157,7 @@ const Navbar = () => {
                   </Link>
                 ))}
               </div>
-              <Link href='/login'>
-                <a className='block w-full px-5 py-3 text-center font-medium text-[#f1ac18] bg-gray-50 hover:bg-gray-100'>
-                  Log in
-                </a>
-              </Link>
+              {isAuthenticated ? authLinksMobile : guestLinksMobile}
             </div>
           </Popover.Panel>
         </Transition>

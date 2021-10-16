@@ -32,7 +32,6 @@ const authReducer = (state, action) => {
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
-      Cookies.remove('token');
       return {
         ...state,
         isAuthenticated: false,

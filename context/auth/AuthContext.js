@@ -19,7 +19,7 @@ export const AuthContext = createContext();
 
 const AuthState = (props) => {
   const initialState = {
-    token: Cookies.get('token'),
+    token: Cookies.get('token') || null,
     isAuthenticated: null,
     loading: true,
     user: null,
@@ -99,7 +99,10 @@ const AuthState = (props) => {
   };
 
   // Logout
-  const logout = () => dispatch({ type: LOGOUT });
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+    Cookies.remove('token');
+  };
 
   // Clear Errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
