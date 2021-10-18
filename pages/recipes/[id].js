@@ -6,8 +6,12 @@ import { GET_RECIPE } from '@/queries/recipeQueries';
 import Link from 'next/dist/client/link';
 import RecipeTabs from '@/components/RecipeParts/RecipeTabs';
 import CommentSection from '@/components/CommentParts/CommentSection';
+import { Fragment, useContext } from 'react';
+import { AuthContext } from '@/context/auth/AuthContext';
 
 const RecipePage = ({ recipe }) => {
+  const authContext = useContext(AuthContext);
+
   const {
     title,
     ingredients,
@@ -17,9 +21,12 @@ const RecipePage = ({ recipe }) => {
     cover,
     category,
     comments,
+    id,
   } = recipe;
 
   const router = useRouter();
+
+  const { isAuthenticated } = authContext;
 
   const handleGoBack = (e) => {
     e.preventDefault();
@@ -31,6 +38,24 @@ const RecipePage = ({ recipe }) => {
     navigator.clipboard.writeText(currentUrl);
     // setAlert('Copied to clipboard!');
   };
+
+  const editAndDelete = (
+    <Fragment>
+      <div className='flex justify-start mb-4 items-center'>
+        <Link href={`/recipes/edit/${id}`}>
+          <a className='inline-block px-4 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize ml-2 mr-3 border border-[#d45464] hover:border-[#cc080b] transition ease-in duration-150'>
+            Edit
+          </a>
+        </Link>
+        <button
+          onClick={handleGoBack}
+          className='inline-block px-4 py-2 rounded border border-[#f1ac18] hover:border-[#f25b0a] text-[#f1ac18] hover:text-[#f25b0a] capitalize font-semibold transition ease-in duration-150'
+        >
+          Delete
+        </button>
+      </div>
+    </Fragment>
+  );
 
   return (
     <section className='lg:w-2/3 mx-auto py-20'>
@@ -63,6 +88,7 @@ const RecipePage = ({ recipe }) => {
               <MdShare className='text-4xl text-[#f1ac18] hover:text-[#f25b0a] text-shadow-xl transition ease-in duration-150' />
             </button>
           </div>
+          {isAuthenticated && editAndDelete}
           <div className='flex justify-end items-center mb-2'>
             <img
               src={user.profile.avatar.formats.thumbnail.url}
