@@ -28,7 +28,12 @@ const Navbar = () => {
 
   const authLinks = (
     <Fragment>
-      <a className='inline-block font-semibold text-black'>
+      <a className='inline-block items-center text-sm font-semibold mr-8'>
+        <img
+          src={user && user.user.profile.avatar.formats.thumbnail.url}
+          alt='avatar'
+          className='ml-2 mr-4 w-8 h-8 object-cover rounded-full inline-block'
+        />
         {user && user.username}
       </a>
       <a
@@ -54,7 +59,14 @@ const Navbar = () => {
   const authLinksMobile = (
     <Fragment>
       <div className='flex flex-wrap justify-center items-center block w-full px-5 py-3 text-center font-medium bg-gray-50 hover:bg-gray-100'>
-        <a className='inline-block text-black mr-4'>{user && user.username}</a>
+        <a className='inline-block items-center text-sm font-semibold mr-4'>
+          <img
+            src={user && user.user.profile.avatar.formats.thumbnail.url}
+            alt='avatar'
+            className='ml-2 mr-4 w-8 h-8 object-cover rounded-full inline-block'
+          />
+          {user && user.username}
+        </a>
         <a
           onClick={handleLogout}
           className='items-center inline-block cursor-pointer text-[#f1ac18] hover:text-[#f25b0a] mb-1'
@@ -115,6 +127,8 @@ const Navbar = () => {
                   </a>
                 </Link>
               ))}
+            </div>
+            <div className='hidden md:block md:ml-10 md:pr-4'>
               {isAuthenticated ? authLinks : guestLinks}
             </div>
           </nav>

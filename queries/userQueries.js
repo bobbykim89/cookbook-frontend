@@ -22,6 +22,16 @@ const ME = gql`
       email
       username
       id
+      user {
+        profile {
+          introduction
+          avatar {
+            id
+            url
+            formats
+          }
+        }
+      }
     }
   }
 `;
