@@ -41,19 +41,17 @@ const RecipePage = ({ recipe }) => {
 
   const editAndDelete = (
     <Fragment>
-      <div className='flex justify-start mb-4 items-center'>
-        <Link href={`/recipes/edit/${id}`}>
-          <a className='inline-block px-4 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize ml-2 mr-3 border border-[#d45464] hover:border-[#cc080b] transition ease-in duration-150'>
-            Edit
-          </a>
-        </Link>
-        <button
-          onClick={handleGoBack}
-          className='inline-block px-4 py-2 rounded border border-[#f1ac18] hover:border-[#f25b0a] text-[#f1ac18] hover:text-[#f25b0a] capitalize font-semibold transition ease-in duration-150'
-        >
-          Delete
-        </button>
-      </div>
+      <Link href={`/recipes/edit/${id}`}>
+        <a className='inline-block px-4 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize mr-2 lg:mr-3 border border-[#d45464] hover:border-[#cc080b] transition ease-in duration-150'>
+          Edit
+        </a>
+      </Link>
+      <button
+        onClick={handleGoBack}
+        className='inline-block px-4 py-2 rounded border border-[#f1ac18] bg-[#f1ac18] hover:bg-[#f25b0a] hover:border-[#f25b0a] text-white capitalize font-semibold transition mr-2 lg:mr-3 ease-in duration-150'
+      >
+        Delete
+      </button>
     </Fragment>
   );
 
@@ -61,7 +59,7 @@ const RecipePage = ({ recipe }) => {
     <section className='lg:w-2/3 mx-auto py-20'>
       <div className='mb-8 shadow-xl'>
         <img
-          src={cover.url}
+          src={cover ? cover.url : '/images/default.jpg'}
           alt='cover'
           className='max-h-[70vh] w-full object-cover object-center'
         />
@@ -71,27 +69,33 @@ const RecipePage = ({ recipe }) => {
           {title}
         </h1>
         <div className='mb-8'>
-          <div className='flex justify-start mb-4 items-center '>
+          <div className='flex justify-start mb-6 items-center '>
             <button
               onClick={handleGoBack}
-              className='inline-block px-4 py-2 rounded border border-[#f1ac18] hover:border-[#f25b0a] text-[#f1ac18] hover:text-[#f25b0a] capitalize ml-2 mr-3 font-semibold transition ease-in duration-150'
+              className='inline-block px-3 lg:px-4 py-2 rounded border border-[#f1ac18] hover:border-[#f25b0a] text-[#f1ac18] hover:text-[#f25b0a] capitalize ml-1 lg:ml-2 mr-2 lg:mr-3 font-semibold transition ease-in duration-150'
             >
               Go Back
             </button>
+            {isAuthenticated && editAndDelete}
+            <button onClick={copyLink}>
+              <MdShare className='text-4xl text-[#d45464] hover:text-[#cc080b] text-shadow-xl transition ease-in duration-150' />
+            </button>
+          </div>
 
+          <div className='text-right mb-6'>
             <Link href={`/recipes/categories/${category.id}`}>
-              <a className='inline-block px-4 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize mr-3 border border-[#d45464] hover:border-[#cc080b] transition ease-in duration-150'>
+              <a className='inline-block px-4 py-2 rounded bg-[#d45464] hover:bg-[#cc080b] text-white capitalize border border-[#d45464] hover:border-[#cc080b] transition ease-in duration-150'>
                 {category.name}
               </a>
             </Link>
-            <button onClick={copyLink}>
-              <MdShare className='text-4xl text-[#f1ac18] hover:text-[#f25b0a] text-shadow-xl transition ease-in duration-150' />
-            </button>
           </div>
-          {isAuthenticated && editAndDelete}
           <div className='flex justify-end items-center mb-2'>
             <img
-              src={user.profile.avatar.formats.thumbnail.url}
+              src={
+                user.profile.avatar
+                  ? user.profile.avatar.formats.thumbnail.url
+                  : 'images/defaultProfile.jpg'
+              }
               alt='avatar'
               className='ml-2 mr-4 w-10 h-10 object-cover rounded-full block'
             />

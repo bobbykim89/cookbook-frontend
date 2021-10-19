@@ -30,7 +30,11 @@ const Navbar = () => {
     <Fragment>
       <a className='inline-block items-center text-sm font-semibold mr-8'>
         <img
-          src={user && user.user.profile.avatar.formats.thumbnail.url}
+          src={
+            user && user.user.profile.avatar.formats
+              ? user.user.profile.avatar.formats.thumbnail.url
+              : '/images/defaultProfile.jpg'
+          }
           alt='avatar'
           className='ml-2 mr-4 w-8 h-8 object-cover rounded-full inline-block'
         />
