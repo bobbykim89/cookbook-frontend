@@ -39,13 +39,10 @@ const ME = gql`
 const GET_USER_INFO = gql`
   query UserInfo {
     me {
-      email
-      username
-      id
       user {
         profile {
-          introduction
           id
+          introduction
           avatar {
             id
             url
@@ -64,12 +61,12 @@ const GET_USER_INFO = gql`
             name
             id
           }
+          created_at
           cover {
             id
             url
             formats
           }
-          created_at
         }
       }
     }
