@@ -117,7 +117,7 @@ export default RecipePage;
 export async function getServerSideProps({ query: { id } }) {
   const { data } = await client.query({
     query: GET_RECIPE,
-    variables: { id: id },
+    variables: { id },
   });
 
   return {

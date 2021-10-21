@@ -46,6 +46,7 @@ const AuthState = (props) => {
         type: AUTH_ERROR,
         payload: error.message,
       });
+      Cookies.remove('token');
     }
   };
 
@@ -70,12 +71,13 @@ const AuthState = (props) => {
         type: SIGNUP_FAIL,
         payload: error.message,
       });
+      Cookies.remove('token');
     }
   };
 
   // Login User
   const login = async ({ email, password }) => {
-    const { data, error } = await client.mutate({
+    const { data, errors } = await client.mutate({
       mutation: LOGIN_USER,
       variables: {
         email,
@@ -93,8 +95,9 @@ const AuthState = (props) => {
       console.log(err);
       dispatch({
         type: LOGIN_FAIL,
-        payload: error.message,
+        payload: errors[0].message,
       });
+      Cookies.remove('token');
     }
   };
 

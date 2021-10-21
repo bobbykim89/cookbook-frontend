@@ -1,16 +1,32 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Link from 'next/dist/client/link';
 import { AuthContext } from '@/context/auth/AuthContext';
+import { AlertContext } from '@/context/alert/AlertContext';
+import { useRouter } from 'next/dist/client/router';
 
 const Login = () => {
   const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
 
-  const { login } = authContext;
+  const { login, isAuthenticated, error, clearErrors } = authContext;
+  const { setAlert } = alertContext;
   const { email, password } = user;
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/recipes');
+    }
+    if (error) {
+      setAlert(error);
+      clearErrors();
+    }
+  });
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -19,7 +35,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email === '' || password === '') {
-      return console.log('Please fill in all fields');
+      setAlert('Please fill in all fields');
     }
     login({ email, password });
   };

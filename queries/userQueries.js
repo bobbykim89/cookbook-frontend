@@ -39,6 +39,9 @@ const ME = gql`
 const GET_USER_INFO = gql`
   query UserInfo {
     me {
+      email
+      username
+      id
       user {
         profile {
           id

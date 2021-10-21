@@ -31,7 +31,7 @@ const Navbar = () => {
       <a className='inline-block items-center text-sm font-semibold mr-8'>
         <img
           src={
-            user && user.user.profile.avatar.formats
+            user && user.user.profile.avatar
               ? user.user.profile.avatar.formats.thumbnail.url
               : '/images/defaultProfile.jpg'
           }
