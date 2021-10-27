@@ -1,9 +1,11 @@
-import { useContext, useState } from 'react';
-import Link from 'next/dist/client/link';
+import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '@/context/auth/AuthContext';
+import { AlertContext } from '@/context/alert/AlertContext';
+import { useRouter } from 'next/dist/client/router';
 
 const Signup = () => {
   const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
 
   const [user, setUser] = useState({
     name: '',
@@ -12,9 +14,22 @@ const Signup = () => {
     password2: '',
   });
 
-  const { signup } = authContext;
+  const { signup, isAuthenticated, error, clearErrors } = authContext;
+  const { setAlert } = alertContext;
 
   const { name, email, password, password2 } = user;
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/recipes');
+    }
+    if (error) {
+      setAlert(error);
+      clearErrors();
+    }
+  });
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -23,9 +38,9 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name === '' || email === '' || password === '') {
-      return console.log('Alert: Please enter all fiends');
+      setAlert('Please enter all fiends');
     } else if (password !== password2) {
-      return console.log('Alert: Please Check password again');
+      setAlert('Please Check password again');
     }
     signup({ name, email, password });
   };

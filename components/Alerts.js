@@ -11,7 +11,7 @@ const Alerts = () => {
         className='px-3 py-3 text-white text-center bg-red-500 shadow-md'
         key={alert.id}
       >
-        <FaInfoCircle /> {alert.msg}
+        <FaInfoCircle className='inline-block' /> {alert.msg}
       </div>
     ))
   );

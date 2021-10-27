@@ -30,21 +30,22 @@ const AuthState = (props) => {
     if (initialState.token) {
       loadUser();
     }
+    // eslint-disable-next-line
   }, []);
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load User
   const loadUser = async () => {
-    const { data, error } = await client.query({
-      query: ME,
-    });
     try {
+      const { data } = await client.query({
+        query: ME,
+      });
       dispatch({ type: USER_LOADED, payload: data.me });
     } catch (err) {
       dispatch({
         type: AUTH_ERROR,
-        payload: error.message,
+        payload: err.message,
       });
       Cookies.remove('token');
     }
@@ -52,15 +53,15 @@ const AuthState = (props) => {
 
   // Signup User
   const signup = async ({ name, email, password }) => {
-    const { data, error } = await client.mutate({
-      mutation: SIGNUP_USER,
-      variables: {
-        name,
-        email,
-        password,
-      },
-    });
     try {
+      const { data } = await client.mutate({
+        mutation: SIGNUP_USER,
+        variables: {
+          name,
+          email,
+          password,
+        },
+      });
       dispatch({
         type: SIGNUP_SUCCESS,
         payload: data.register, // data.jwt, data.user
@@ -69,7 +70,7 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: SIGNUP_FAIL,
-        payload: error.message,
+        payload: 'Signup Failed, Please check fields again',
       });
       Cookies.remove('token');
     }
@@ -77,25 +78,23 @@ const AuthState = (props) => {
 
   // Login User
   const login = async ({ email, password }) => {
-    const { data, errors } = await client.mutate({
-      mutation: LOGIN_USER,
-      variables: {
-        email,
-        password,
-      },
-    });
-    console.log(data.login);
     try {
+      const { data } = await client.mutate({
+        mutation: LOGIN_USER,
+        variables: {
+          email,
+          password,
+        },
+      });
       dispatch({
         type: LOGIN_SUCCESS,
         payload: data.login,
       });
       loadUser();
     } catch (err) {
-      console.log(err);
       dispatch({
         type: LOGIN_FAIL,
-        payload: errors[0].message,
+        payload: 'Invalid Credentials',
       });
       Cookies.remove('token');
     }
