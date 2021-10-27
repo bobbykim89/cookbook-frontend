@@ -8,8 +8,8 @@ import CategoryState from '@/context/category/CategoryContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AuthState>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <AuthState>
         <AlertState>
           <CategoryState>
             <Layout>
@@ -17,8 +17,8 @@ function MyApp({ Component, pageProps }) {
             </Layout>
           </CategoryState>
         </AlertState>
-      </ApolloProvider>
-    </AuthState>
+      </AuthState>
+    </ApolloProvider>
   );
 }
 

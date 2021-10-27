@@ -1,18 +1,17 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/dist/client/link';
 import { AuthContext } from '@/context/auth/AuthContext';
 import { FaSignOutAlt } from 'react-icons/fa';
-import { useRouter } from 'next/dist/client/router';
-import Cookies from 'js-cookie';
 
 const Navbar = () => {
-  const authContext = useContext(AuthContext);
+  const { isAuthenticated, loadUser, user, logout } = useContext(AuthContext);
 
-  const router = useRouter();
-
-  const { isAuthenticated, user, logout } = authContext;
+  useEffect(() => {
+    loadUser();
+    // eslint-disable-next-line
+  }, []);
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -32,7 +31,7 @@ const Navbar = () => {
         <img
           src={
             user && user.user.profile.avatar
-              ? user.user.profile.avatar.formats.thumbnail.url
+              ? user && user.user.profile.avatar.formats.thumbnail.url
               : '/images/defaultProfile.jpg'
           }
           alt='avatar'
@@ -65,7 +64,11 @@ const Navbar = () => {
       <div className='flex flex-wrap justify-center items-center block w-full px-5 py-3 text-center font-medium bg-gray-50 hover:bg-gray-100'>
         <a className='inline-block items-center text-sm font-semibold mr-4'>
           <img
-            src={user && user.user.profile.avatar.formats.thumbnail.url}
+            src={
+              user && user.user.profile.avatar
+                ? user && user.user.profile.avatar.formats.thumbnail.url
+                : '/images/defaultProfile.jpg'
+            }
             alt='avatar'
             className='ml-2 mr-4 w-8 h-8 object-cover rounded-full inline-block'
           />

@@ -1,14 +1,9 @@
-import { AuthContext } from '@/context/auth/AuthContext';
 import Head from 'next/head';
-import { useContext, useEffect } from 'react';
 import Alerts from './Alerts';
 import Footer from './LayoutParts/Footer';
 import Navbar from './LayoutParts/Navbar';
 
 const Layout = ({ title, keywords, description, children }) => {
-  const authContext = useContext(AuthContext);
-  const { loadUser, token } = authContext;
-
   return (
     <div className='relative font-inter'>
       <Head>
