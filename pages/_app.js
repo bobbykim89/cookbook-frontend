@@ -5,17 +5,20 @@ import client from '@/config/apolloClient';
 import AuthState from '@/context/auth/AuthContext';
 import AlertState from '@/context/alert/AlertContext';
 import CategoryState from '@/context/category/CategoryContext';
+import ProfileState from '@/context/profile/ProfileContext';
 
 function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
       <AuthState>
         <AlertState>
-          <CategoryState>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </CategoryState>
+          <ProfileState>
+            <CategoryState>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </CategoryState>
+          </ProfileState>
         </AlertState>
       </AuthState>
     </ApolloProvider>
