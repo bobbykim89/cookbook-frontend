@@ -4,12 +4,16 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/dist/client/link';
 import { AuthContext } from '@/context/auth/AuthContext';
 import { FaSignOutAlt } from 'react-icons/fa';
+import { ProfileContext } from '@/context/profile/ProfileContext';
 
 const Navbar = () => {
-  const { isAuthenticated, loadUser, user, logout } = useContext(AuthContext);
+  const { isAuthenticated, user, logout } = useContext(AuthContext);
+  const { loadProfile, profile } = useContext(ProfileContext);
 
   useEffect(() => {
-    loadUser();
+    if (isAuthenticated === true) {
+      loadProfile(user.id);
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -19,6 +23,8 @@ const Navbar = () => {
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  console.log(user);
 
   const handleLogout = () => {
     logout();
@@ -30,8 +36,8 @@ const Navbar = () => {
       <a className='inline-block items-center text-sm font-semibold mr-8'>
         <img
           src={
-            user && user.user.profile.avatar
-              ? user && user.user.profile.avatar.formats.thumbnail.url
+            profile && profile.avatar
+              ? profile && profile.avatar.formats.thumbnail.url
               : '/images/defaultProfile.jpg'
           }
           alt='avatar'
@@ -65,8 +71,8 @@ const Navbar = () => {
         <a className='inline-block items-center text-sm font-semibold mr-4'>
           <img
             src={
-              user && user.user.profile.avatar
-                ? user && user.user.profile.avatar.formats.thumbnail.url
+              profile && profile.avatar
+                ? profile && profile.avatar.formats.thumbnail.url
                 : '/images/defaultProfile.jpg'
             }
             alt='avatar'

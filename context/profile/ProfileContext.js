@@ -21,6 +21,7 @@ const ProfileState = (props) => {
         query: GET_PROFILE,
         variables: { id },
       });
+      console.log(data);
       dispatch({
         type: PROFILE_LOADED,
         payload: data.user.profile,
