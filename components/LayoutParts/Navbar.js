@@ -11,11 +11,11 @@ const Navbar = () => {
   const { loadProfile, profile } = useContext(ProfileContext);
 
   useEffect(() => {
-    if (isAuthenticated === true) {
-      loadProfile(user.id);
+    if (isAuthenticated) {
+      loadProfile({ id: user.id });
     }
     // eslint-disable-next-line
-  }, []);
+  }, [profile]);
 
   const navigation = [
     { name: 'Home', href: '/' },

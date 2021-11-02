@@ -15,7 +15,7 @@ const ProfileState = (props) => {
   const [state, dispatch] = useReducer(profileReducer, initialState);
 
   // Load Profile
-  const loadProfile = async (id) => {
+  const loadProfile = async ({ id }) => {
     try {
       const { data } = client.query({
         query: GET_PROFILE,
@@ -24,7 +24,7 @@ const ProfileState = (props) => {
       console.log(data);
       dispatch({
         type: PROFILE_LOADED,
-        payload: data.user.profile,
+        payload: data,
       });
     } catch (err) {
       dispatch({
