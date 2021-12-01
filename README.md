@@ -37,7 +37,7 @@ chokidar-cli
 
 ## Changes
 
-1. initial config
+1. Changes on direction of this project. Some of features doesn't comply with the way I want it to be and it needs further configuration in the future. Initial motivation of this recipe blog was to share my recipes with my friends. For initial deployment I am planning to have authentication and users to leave comments. and post recipes on backend (strapi admin) and will patch up the project to enable other features.
 
 ## Known Issues
 
