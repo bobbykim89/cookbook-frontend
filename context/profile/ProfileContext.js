@@ -19,7 +19,7 @@ const ProfileState = (props) => {
     try {
       const { data } = client.query({
         query: GET_PROFILE,
-        variables: { id },
+        variables: { id: id },
       });
       console.log(data);
       dispatch({
@@ -31,6 +31,7 @@ const ProfileState = (props) => {
         type: PROFILE_ERROR,
         payload: 'Failed to load profile',
       });
+      console.log('failed to load profile');
     }
   };
 

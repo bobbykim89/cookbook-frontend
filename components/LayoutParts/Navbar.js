@@ -7,15 +7,16 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import { ProfileContext } from '@/context/profile/ProfileContext';
 
 const Navbar = () => {
-  const { isAuthenticated, user, logout } = useContext(AuthContext);
+  const { isAuthenticated, loadUser, token, user, logout } =
+    useContext(AuthContext);
   const { loadProfile, profile } = useContext(ProfileContext);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      loadProfile({ id: user.id });
+    if (token !== null) {
+      loadUser();
     }
     // eslint-disable-next-line
-  }, [profile]);
+  }, [user]);
 
   const navigation = [
     { name: 'Home', href: '/' },
